@@ -65,6 +65,7 @@
             background-color: var(--accent-color);
             padding: 20px;
             border-radius: 10px;
+            user-select: none;
         }
 
         #text-to-type {
@@ -482,7 +483,6 @@
 
                 const typedText = typingArea.value;
                 const textSpans = textToTypeElement.querySelectorAll('span');
-
                 typedCharacters = typedText.length;
 
                 // Count errors, accuracy, and backspaces
@@ -594,6 +594,18 @@
                     e.preventDefault();
                 }
             }
+
+            // Prevent copying from the text-to-type container
+            textToTypeElement.addEventListener('copy', (e) => {
+                e.preventDefault();
+                return false;
+            });
+
+            // Prevent pasting into the typing area
+            typingArea.addEventListener('paste', (e) => {
+                e.preventDefault();
+                return false;
+            });
 
             startPractice();
         });
