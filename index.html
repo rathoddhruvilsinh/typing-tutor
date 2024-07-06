@@ -66,6 +66,9 @@
             padding: 20px;
             border-radius: 10px;
             user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         #text-to-type {
@@ -480,7 +483,6 @@
                     timerStarted = true;
                     startTime = new Date();
                 }
-
                 const typedText = typingArea.value;
                 const textSpans = textToTypeElement.querySelectorAll('span');
                 typedCharacters = typedText.length;
@@ -597,6 +599,24 @@
 
             // Prevent copying from the text-to-type container
             textToTypeElement.addEventListener('copy', (e) => {
+                e.preventDefault();
+                return false;
+            });
+
+            // Prevent selection in the text-to-type container
+            textToTypeElement.addEventListener('selectstart', (e) => {
+                e.preventDefault();
+                return false;
+            });
+
+            // Prevent context menu (right-click) in the text-to-type container
+            textToTypeElement.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                return false;
+            });
+
+            // Prevent dragging text from the text-to-type container
+            textToTypeElement.addEventListener('dragstart', (e) => {
                 e.preventDefault();
                 return false;
             });
